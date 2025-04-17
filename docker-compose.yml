@@ -2,7 +2,7 @@ services:
   nginx:
     image: "nginx:stable-alpine"
     ports:
-      - "8000:80"
+      - "8999:80"
     volumes:
         - .:/var/www/html
         - ./nginx.conf:/etc/nginx/conf.d/default.conf
@@ -19,14 +19,16 @@ services:
       - postgres
 
   postgres:
-    image: postgres:17.4 
+    image: postgres:latest
     container_name: postgres 
     platform: linux/amd64
     restart: always
     ports: 
-      - "5432:5432"
-    env_file:
-    - .env 
+      - "5434:5432"
+    environment:
+      POSTGRES_USER: user 
+      POSTGRES_PASSWORD: password 
+      POSTGRES_DB: users
     volumes:
       - psql_data:/var/lib/postgresql/data
 
